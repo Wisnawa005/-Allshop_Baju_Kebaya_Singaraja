@@ -7,7 +7,7 @@
                     <!-- Nested Row within Card Body -->
                     <div class="row">
                         <div class="col-lg-6 d-none d-lg-block ">
-                            <img src="<?php echo base_url('assets/img/login/login.jpg'); ?>" style="width:480px;height:600px;" alt="" />
+                            <img src="<?php echo base_url('assets/login/img/login/login.jpg'); ?>" style="width:480px;height:600px;" alt="" />
                         </div>
                         <div class="col-lg-6">
                             <div class="p-5">
