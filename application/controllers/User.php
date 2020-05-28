@@ -95,7 +95,7 @@ class User extends CI_Controller
     function hapus_belanja()
     {
         $this->cart->destroy();
-        redirect('User');
+        redirect('User/detail_keranjang_belanja');
     }
 
     function pembayaran()
