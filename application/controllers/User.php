@@ -2,127 +2,70 @@
 defined('BASEPATH') or exit('No direct script acess allowed');
 class User extends CI_Controller
 {
-    function __construct()
-    {
-        parent::__construct();
-        $this->load->model('M_user');
-        $this->load->helper('url');
-    }
-    function index()
-    {
-        $data['title'] = "Beranda Web Shop";
-        $data['description'] = 'edy wisnawa';
-        $data['meta'] = "Ini HTML";
-        $data['barang'] = $this->M_user->tampil_data()->result();
-        $this->load->view('front_end/template', $data);
-    }
-    function beranda()
-    {
-        $data['title'] = "Beranda Web Shop";
-        $data['meta'] = "Ini HTML";
-        $data['beranda'] = 'front_end/beranda';
-        $this->load->view('front_end/beranda');
-    }
-    function caraosel()
-    {
-        $data['title'] = "Caraosel Web Shop";
-        $data['meta'] = "Ini HTML";
-        $data['caraosel'] = 'front_end/caraosel';
-        $this->load->view('front_end/caraosel');
-    }
-    function new_arrivals()
-    {
-        $data['title'] = "New Arrivals Web Shop";
-        $data['meta'] = "Ini HTML";
-        $data['new_arrivals'] = 'front_end/new_arrivals';
-        $this->load->view('front_end/new_arrivals');
-    }
-    function best_seller()
-    {
-        $data['title'] = "Best Seller Web Shop";
-        $data['meta'] = "Ini HTML";
-        $data['best_seller'] = 'front_end/best_seller';
-        $this->load->view('front_end/best_seller');
-    }
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->model('M_user');
+		$this->load->helper('url');
+		$this->load->library('cart');
+	}
+	function index()
+	{
+		$data['title'] = "Allshop Baju Kebaya";
+		$data['barang'] = $this->M_user->getTable_tb_barang()->result();
 
-    function blog()
-    {
-        $data['title'] = "Our Blog Web Shop";
-        $data['meta'] = "Ini HTML";
-        $data['top_rated'] = 'front_end/blog';
-        $this->load->view('front_end/blog');
-    }
-    function footer()
-    {
-        $data['title'] = "Footer Web Shop";
-        $data['meta'] = "Ini HTML";
-        $data['footer'] = 'front_end/footer';
-        $this->load->view('front_end/footer');
-    }
-    function kontak()
-    {
-        $data['title'] = "Contact Web Shop";
-        $data['meta'] = "Ini HTML";
-        $data['kontak'] = 'front_end/contact';
-        $this->load->view('front_end/contact');
-    }
+		$this->load->view('front_end/template/header', $data);
+		$this->load->view('front_end/index', $data);
+		$this->load->view('front_end/template/footer');
+	}
 
-    //fungsi untuk menambahkan ke keranjang belanja
-    public function tambah_ke_keranjang($id)
-    {
-        $barang = $this->M_user->find($id);
+	function blog()
+	{
+		$data['title'] = "Our Blog Web Shop";
 
-        $data = array(
-            'id'      => $barang->kode_barang,
-            'qty'     => 1,
-            'price'   => $barang->harga_jual,
-            'name'    => $barang->nama_barang,
-            'image'   => $barang->foto
-        );
+		$data['top_rated'] = 'front_end/blog';
+		$this->load->view('front_end/blog');
+	}
 
-        $this->cart->insert($data);
-        redirect('user');
-    }
+	function kontak()
+	{
+		$data['title'] = "Contact Web Shop";
 
-    function detail_keranjang_belanja()
-    {
-        $data['title'] = "Beranda Web Shop";
-        $data['description'] = 'edy wisnawa';
-        $data['meta'] = "Ini HTML";
-        $this->load->view('front_end/keranjang');
-    }
+		$this->load->view('front_end/template/header', $data);
+		$this->load->view('front_end/contact');
+		$this->load->view('front_end/template/footer');
+	}
 
-    function hapus_belanja()
-    {
-        $this->cart->destroy();
-        redirect('User/detail_keranjang_belanja');
-    }
+	//tambah_ke_keranjang redirect ke user dan bilang belom mempunyai account
+	//melakukan registrasi di auth
+	public function tambah_ke_keranjang()
+	{
+		$this->session->set_flashdata('no_login', 'Maaf, anda harus login terlebih dahulu');
+		redirect(base_url('user'), 'refresh');
+	}
 
-    function pembayaran()
-    {
-        $data['title'] = "Beranda Web Shop";
-        $data['description'] = 'edy wisnawa';
-        $data['meta'] = "Ini HTML";
-        $this->load->view('front_end/pembayaran');
-    }
+	//detail keranjang belanja
+	function detail_keranjang_belanja()
+	{
+		$data['title'] = "Detail Cart";
 
-    function pesanan()
-    {
-        $data['title'] = "Beranda Web Shop";
-        $data['description'] = 'edy wisnawa';
-        $data['meta'] = "Ini HTML";
-        $this->cart->destroy();
-        $this->load->view('front_end/pesanan');
-    }
+		$this->session->set_flashdata('no_login', 'Maaf, anda harus login terlebih dahulu');
+		redirect(base_url('user'), 'refresh');
+	}
 
-    //produk
-    function detail_barang($id_barang)
-    {
-        $data['barang'] = $this->model_barang->detail_brg($id_barang);
-        $data['title'] = "Beranda Web Shop";
-        $data['description'] = 'edy wisnawa';
-        $data['meta'] = "Ini HTML";
-        $this->cart->destroy();
-        $this->load->view('front_end/detail_barang');
-    }
+	//produk
+	function detail_barang($kode_barang)
+	{
+		$data['title'] = "Detail Produk";
+
+		$data['produsen'] = "Allshop Baju Kebaya Bu Ayu";
+		$data['dikirim'] = "Buleleng-Banyuning, Kab. Buleleng";
+
+		$data['barang'] = $this->M_user->detail_brg($kode_barang);
+		//$data['kategori'] = $this->M_user->getTable_tb_ktbarang()->result();
+
+		$this->load->view('front_end/template/header', $data);
+		$this->load->view('front_end/detail_barang', $data);
+		$this->load->view('front_end/template/footer');
+	}
 }
