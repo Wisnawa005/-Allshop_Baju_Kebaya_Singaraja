@@ -40,6 +40,17 @@ class M_admin extends CI_Model
 		$this->db->update($table, $data);
 	}
 
+	public function detail_product($kode_barang)
+	{
+		$result = $this->db->where('kode_barang', $kode_barang)->get('tb_barang');
+
+		if ($result->num_rows() > 0) {
+			return $result->result();
+		} else {
+			return false;
+		}
+	}
+
 	//menampilkan invoice atau detail pesanan di admin
 	public function invoice()
 	{
@@ -51,6 +62,8 @@ class M_admin extends CI_Model
 		$email = $this->input->post('email');
 		$nophone = $this->input->post('nophone');
 		$comment = $this->input->post('comment');
+		$shipping = $this->input->post('shipping');
+		$payment = $this->input->post('payment');
 
 		$invoice = array(
 			'name' 			=> $name,
@@ -60,6 +73,8 @@ class M_admin extends CI_Model
 			'email' 		=> $email,
 			'nophone' 		=> $nophone,
 			'comment' 		=> $comment,
+			'shipping'		=> $shipping,
+			'payment'		=> $payment,
 			'tgl_pesan' 	=> date('Y-m-d H:i:s'),
 			'batas_bayar'	=> date(
 				'Y-m-d H:i:s',
@@ -90,19 +105,19 @@ class M_admin extends CI_Model
 		return true;
 	}
 
-	public function getviewData_User()
-	{
-		$result = $this->db->get('tb_user');
-		if ($result->num_rows() > 0) {
-			return $result->result();
-		} else {
-			return false;
-		}
-	}
+	// public function getInvoice_Id($id_invoice)
+	// {
+	// 	$result = $this->db->where('id_invoice', $id_invoice)->get('tb_invoice');
+	// 	if ($result->num_rows() > 0) {
+	// 		return $result->row();
+	// 	} else {
+	// 		return false;
+	// 	}
+	// }
 
-	public function getviewData_ktbarang()
+	public function getviewPesanan_Id($id_invoice)
 	{
-		$result = $this->db->get('tb_ktbarang');
+		$result = $this->db->where('id_invoice', $id_invoice)->get('tb_pesanan');
 		if ($result->num_rows() > 0) {
 			return $result->result();
 		} else {
@@ -119,30 +134,10 @@ class M_admin extends CI_Model
 			return false;
 		}
 	}
-	//
-	public function getviewInvoice_Id($id_invoice)
-	{
-		$result = $this->db->where('id_invoice', $id_invoice)->limit(1)->get('tb_invoice');
-		if ($result->num_rows() > 0) {
-			return $result->row();
-		} else {
-			return false;
-		}
-	}
 
-	public function getInvoice_Id($id_invoice)
+	public function getviewData_User()
 	{
-		$result = $this->db->where('id_invoice', $id_invoice)->get('tb_invoice');
-		if ($result->num_rows() > 0) {
-			return $result->row();
-		} else {
-			return false;
-		}
-	}
-
-	public function getviewPesanan_Id($id_invoice)
-	{
-		$result = $this->db->where('id_invoice', $id_invoice)->get('tb_pesanan');
+		$result = $this->db->get('tb_user');
 		if ($result->num_rows() > 0) {
 			return $result->result();
 		} else {

@@ -51,18 +51,19 @@ class Admin extends CI_Controller
 
 	public function add_data_barang()
 	{
+		///$kode_barang     = $this->input->post('kode_barang');
 		$ktbarang      	 = $this->input->post('ktbarang');
 		$nama_barang     = $this->input->post('nama_barang');
 		$harga_jual      = $this->input->post('harga_jual');
 		$stok          	 = $this->input->post('stok');
 		$satuan          = $this->input->post('satuan');
-		$deskripsi       = $this->input->post('stok');
-		$foto            = $_FILES['foto']['name'];
-		$foto2            = $_FILES['foto']['name'];
+		$deskripsi       = $this->input->post('deskripsi');
+		$foto            = $_FILES['foto'];
+		$foto2           = $_FILES['foto2'];
 		if ($foto = '') {
 		} else {
-			$config['upload_path']     = './upload/produk/';
-			$config['allowed_types']   = 'jpg|jpeg|png|gif';
+			$config['upload_path']     = './upload/produk';
+			$config['allowed_types']   = 'jpg|JPEG|png|gif';
 
 			$this->load->library('upload', $config);
 			if (!$this->upload->do_upload('foto')) {
@@ -86,6 +87,7 @@ class Admin extends CI_Controller
 		}
 
 		$data = array(
+			//'kode_barang'		 => $kode_barang,
 			'ktbarang'           => $ktbarang,
 			'nama_barang'        => $nama_barang,
 			'harga_jual'         => $harga_jual,
@@ -95,9 +97,6 @@ class Admin extends CI_Controller
 			'foto'               => $foto,
 			'foto2'              => $foto2
 		);
-		// var_dump('add_data_barang');
-		// die;
-
 		$this->M_admin->tambah_barang($data, 'tb_barang');
 		redirect('Admin/product_data');
 	}
@@ -109,13 +108,14 @@ class Admin extends CI_Controller
 		redirect('admin/product_data');
 	}
 
-	public function edit_product($id)
+	public function edit_product($kode_barang)
 	{
-		$data['title'] = "Edit Data Product";
-		$where = array('kode_barang' => $id);
+		$where = array('kode_barang' => $kode_barang);
 		$data['product'] = $this->M_admin->edit_barang($where, 'tb_barang')->result();
+
 		$data['account'] = $this->db->get_where('tb_user', ['email' =>
 		$this->session->userdata('email')])->row_array();
+		$data['title'] = "Edit Data Product";
 
 		$this->load->view('admin/templates/header', $data);
 		$this->load->view('admin/templates/sidebar');
@@ -125,15 +125,13 @@ class Admin extends CI_Controller
 
 	public function update_product()
 	{
-		$id     		 = $this->input->post('kode_barang');
+		$kode_barang     = $this->input->post('kode_barang');
 		$ktbarang      	 = $this->input->post('ktbarang');
 		$nama_barang     = $this->input->post('nama_barang');
 		$harga_jual      = $this->input->post('harga_jual');
 		$stok          	 = $this->input->post('stok');
 		$satuan          = $this->input->post('satuan');
-		$deskripsi       = $this->input->post('stok');
-		// $foto            = $_FILES['foto']['name'];
-		// $foto2           = $_FILES['foto']['name'];
+		$deskripsi       = $this->input->post('deskripsi');
 
 		$data = array(
 			'ktbarang'           => $ktbarang,
@@ -142,33 +140,39 @@ class Admin extends CI_Controller
 			'stok'            	 => $stok,
 			'satuan'             => $satuan,
 			'deskripsi'          => $deskripsi,
-			// 'foto'               => $foto,
-			// 'foto2'              => $foto2
 		);
 
 		$where = array(
-			'kode_barang'       => $id
+			'kode_barang'       => $kode_barang
 		);
 
 		$this->M_admin->update_data($where, $data, 'tb_barang');
 		redirect('admin/product_data');
 	}
 
-	////////////////////////////////////////////////////////////////////////
-
-	public function ktbarang_data()
+	function detail_barang($kode_barang)
 	{
-		$data['title'] = "Data Kategori";
-		$data['ktbarang'] = $this->M_admin->getviewData_ktbarang();
+		$data['account'] = $this->db->get_where('tb_user', ['email' =>
+		$this->session->userdata('email')])->row_array();
+
+		$data['title'] = "Detail Produk";
+		$data['produsen'] = "Allshop Baju Kebaya Bu Ayu";
+		$data['barang'] = $this->M_admin->detail_product($kode_barang);
+
 		$this->load->view('admin/templates/header', $data);
 		$this->load->view('admin/templates/sidebar');
-		$this->load->view('admin/data_ktbarang', $data);
+		$this->load->view('admin/detail_product', $data);
 		$this->load->view('admin/templates/footer');
 	}
+
+	////////////////////////////////////////////////////////////////////////
 
 	public function invoice()
 	{
 		$data['title'] = "Data Invoice";
+		$data['account'] = $this->db->get_where('tb_user', ['email' =>
+		$this->session->userdata('email')])->row_array();
+
 		$data['invoice'] = $this->M_admin->getviewData();
 		$this->load->view('admin/templates/header', $data);
 		$this->load->view('admin/templates/sidebar');
@@ -179,13 +183,27 @@ class Admin extends CI_Controller
 	function detail_invoice($id_invoice)
 	{
 		$data['title'] = "Detail Data Invoice";
-		$data['invoice'] = $this->M_admin->getviewInvoice_Id($id_invoice);
+		$data['account'] = $this->db->get_where('tb_user', ['email' =>
+		$this->session->userdata('email')])->row_array();
+
 		$data['pesanan'] = $this->M_admin->getviewPesanan_Id($id_invoice);
-		$data['invoice_id'] = $this->M_admin->getInvoice_Id($id_invoice);
+		//$data['invoice'] = $this->M_admin->getInvoice_Id($id_invoice);
 
 		$this->load->view('admin/templates/header', $data);
 		$this->load->view('admin/templates/sidebar');
 		$this->load->view('admin/detail_invoice', $data);
+		$this->load->view('admin/templates/footer');
+	}
+
+	public function profile()
+	{
+		$data['title'] = "Profile Account";
+		$data['profile'] = $this->db->get_where('tb_user', ['email' =>
+		$this->session->userdata('email')])->row_array();
+
+		$this->load->view('admin/templates/header', $data);
+		$this->load->view('admin/templates/sidebar');
+		$this->load->view('admin/profile', $data);
 		$this->load->view('admin/templates/footer');
 	}
 }

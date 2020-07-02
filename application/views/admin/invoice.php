@@ -11,8 +11,8 @@
 						<div class="ml-auto text-right">
 							<nav aria-label="breadcrumb">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="#">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Library</li>
+									<li class="breadcrumb-item"><a href="<?php echo site_url('admin'); ?>">Home</a></li>
+									<li class="breadcrumb-item active" aria-current="page"><?= $title; ?></li>
 								</ol>
 							</nav>
 						</div>
@@ -25,7 +25,7 @@
 					<div class="col-12">
 						<div class="card">
 							<div class="card-body">
-								<h5 class="card-title">Basic Datatable</h5>
+								<h5 class="card-title"><?= $title; ?></h5>
 								<div class="table-responsive">
 									<table id="zero_config" class="table table-striped table-bordered">
 										<thead>
@@ -68,7 +68,9 @@
 										</tfoot>
 									</table>
 								</div>
-
+								<a href="<?= base_url('admin') ?>">
+									<div class="btn btn-sm btn-primary">Kembali</div>
+								</a>
 							</div>
 						</div>
 					</div>

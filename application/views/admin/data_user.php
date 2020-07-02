@@ -50,14 +50,32 @@
 													<td><?= $val->name ?></td>
 													<td><?= $val->email ?></td>
 													<td><?= $val->image ?></td>
-													<td><?= $val->is_active ?></td>
-													<td><?= $val->role_id ?></td>
+													<td>
+														<?php
+														$val->is_active;
+														if ($val == "0") {
+															echo "Not Active";
+														} else {
+															echo "Active";
+														}
+														?>
+													</td>
+													<td>
+														<?php
+														$val->role_id;
+														if ($val == "1") {
+															echo "User";
+														} else {
+															echo "Admin";
+														}
+														?>
+													</td>
 												</tr>
 											</tbody>
 										<?php endforeach ?>
 									</table>
 								</div>
-								<a href="<?= base_url('admin/invoice') ?>">
+								<a href="<?= base_url('admin') ?>">
 									<div class="btn btn-sm btn-primary">Kembali</div>
 								</a>
 							</div>

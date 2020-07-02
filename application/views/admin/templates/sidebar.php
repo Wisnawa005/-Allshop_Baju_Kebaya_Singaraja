@@ -11,16 +11,23 @@
 				<li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-cart-plus"></i><span class="hide-menu">Order</span></a>
 					<ul aria-expanded="false" class="collapse  first-level">
 						<li class="sidebar-item"><a href="<?php echo site_url('admin/invoice'); ?>" class="sidebar-link"><i class="mdi mdi-file-document"></i><span class="hide-menu"> Invoices </span></a></li>
-						<li class="sidebar-item"><a href="icon-fontawesome.html" class="sidebar-link"><i class="mdi mdi-email"></i><span class="hide-menu"> Email </span></a></li>
 					</ul>
 				</li>
-				<li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fas fa-table"></i><span class="hide-menu">Table</span></a>
+				<li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fas fa-table"></i><span class="hide-menu">Tabel</span></a>
 					<ul aria-expanded="false" class="collapse  first-level">
-						<li class="sidebar-item"><a href="<?php echo site_url('admin/user_data'); ?>" class="sidebar-link"><i class="fas fa-user"></i><span class="hide-menu"> Table Users </span></a></li>
-						<li class="sidebar-item"><a href="<?php echo site_url('admin/product_data'); ?>" class="sidebar-link"><i class="fas fa-box"></i><span class="hide-menu"> Table Product </span></a></li>
-						<li class="sidebar-item"><a href="<?php echo site_url('admin/ktbarang_data'); ?>" class="sidebar-link"><i class="fas fa-box"></i><span class="hide-menu"> Table Kategori </span></a></li>
+						<li class="sidebar-item"><a href="<?php echo site_url('admin/user_data'); ?>" class="sidebar-link"><i class="fas fa-user"></i><span class="hide-menu"> Tabel Users </span></a></li>
+						<li class="sidebar-item"><a href="<?php echo site_url('admin/product_data'); ?>" class="sidebar-link"><i class="fas fa-box"></i><span class="hide-menu"> Tabel Product </span></a></li>
 					</ul>
 				</li>
+
+				<!-- <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-archive"></i><span class="hide-menu">Kategori</span></a>
+					<ul aria-expanded="false" class="collapse  first-level">
+						<li class="sidebar-item"><a href="<?php echo site_url('admin/kebaya'); ?>" class="sidebar-link"><i class="mdi mdi-flower"></i><span class="hide-menu"> Kebaya </span></a></li>
+						<li class="sidebar-item"><a href="<?php echo site_url('admin/user_data'); ?>" class="sidebar-link"><i class="mdi mdi-creation"></i><span class="hide-menu"> Dress </span></a></li>
+						<li class="sidebar-item"><a href="<?php echo site_url('admin/user_data'); ?>" class="sidebar-link"><i class="mdi mdi-diamond"></i><span class="hide-menu"> Selendang </span></a></li>
+						<li class="sidebar-item"><a href="<?php echo site_url('admin/user_data'); ?>" class="sidebar-link"><i class="mdi mdi-crown"></i><span class="hide-menu"> Kebaya Anak </span></a></li>
+					</ul>
+				</li> -->
 
 			</ul>
 		</nav>

@@ -1,5 +1,3 @@
-<?= $title; ?>
-
 <body>
 	<div id="main-wrapper">
 		<div class="page-wrapper">
@@ -9,7 +7,7 @@
 			<div class="page-breadcrumb">
 				<div class="row">
 					<div class="col-12 d-flex no-block align-items-center">
-						<h4 class="page-title"><?= $title; ?></h4>
+						<h4 class="page-title">Form Edit</h4>
 						<div class="ml-auto text-right">
 							<nav aria-label="breadcrumb">
 								<ol class="breadcrumb">
@@ -24,86 +22,88 @@
 
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-12">
+					<div class="col-6">
 						<div class="card">
-							<div class="card-body">
-								<h5 class="card-title">Basic Datatable</h5>
-								<?php foreach ($product as $val) : ?>
-									<div class="table-responsive">
-
-										<form action="<?= base_url('Admin/add_data_barang') ?>" method="post">
-											<div class="form-group row">
-												<label class="control-label col-md-3 col-sm-3 ">Kategori Barang</label>
-												<div class="col-md-9 col-sm-9 ">
-													<input type="text" name="ktbarang" id="ktbarang" class="form-control" value="<?php echo $val->ktbarang ?>">
-												</div>
+							<?php foreach ($product as $val) : ?>
+								<form action="<?= base_url('Admin/update_product') ?>" method="post" class="form-horizontal">
+									<div class="card-body">
+										<h4 class="card-title">
+											<?= $title; ?>
+											<span class="badge badge-pill badge-secondary"><?php echo $val->kode_barang ?></span>
+										</h4>
+										<div class="form-group row">
+											<label for="fname" class="col-sm-3 text-right control-label col-form-label">Kategori</label>
+											<div class="col-sm-9">
+												<input type="hidden" class="form-control" id="kode_barang" name="kode_barang" value="<?php echo $val->kode_barang ?>">
+												<input type="text" class="form-control" id="ktbarang" name="ktbarang" value="<?php echo $val->ktbarang ?>">
 											</div>
-
-											<div class="form-group row ">
-												<label class="control-label col-md-3 col-sm-3 ">Nama Barang</label>
-												<div class="col-md-9 col-sm-9 ">
-													<input type="text" name="nama_barang" id="nama_barang" class="form-control" value="<?php echo $val->nama_barang ?>">
-												</div>
+										</div>
+										<div class="form-group row">
+											<label for="lname" class="col-sm-3 text-right control-label col-form-label">Last Name</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" id="nama_barang" name="nama_barang" value="<?php echo $val->nama_barang ?>">
 											</div>
-
-											<div class="form-group row ">
-												<label class="control-label col-md-3 col-sm-3 ">Harga Jual<span class="required"> *</span></label>
-												<div class="col-md-9 col-sm-9 ">
-													<input type="text" name="harga_jual" id="harga_jual" required="required" class="form-control" placeholder="Masukkan Harga Barang">
-												</div>
+										</div>
+										<div class="form-group row">
+											<label for="lname" class="col-sm-3 text-right control-label col-form-label">Harga Jual</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" id="harga_jual" name="harga_jual" value="<?php echo $val->harga_jual ?>">
 											</div>
-
-											<div class="form-group row ">
-												<label class="control-label col-md-3 col-sm-3 ">Stok<span class="required"> *</span></label>
-												<div class="col-md-9 col-sm-9 ">
-													<input type="text" name="stok" id="stok" required="required" class="form-control" placeholder="Masukkan Jumlah Stok">
-												</div>
+										</div>
+										<div class="form-group row">
+											<label for="email1" class="col-sm-3 text-right control-label col-form-label">Stok</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" id="stok" name="stok" value="<?php echo $val->stok ?>">
 											</div>
-
-											<div class="form-group row ">
-												<label class="control-label col-md-3 col-sm-3 ">Satuan<span class="required"> *</span></label>
-												<div class="col-md-9 col-sm-9 ">
-													<input type="text" name="satuan" id="satuan" required="required" class="form-control" placeholder="Masukkan Satuan">
-												</div>
-											</div>
-
-											<div class="form-group">
-												<label for="message-text" class="col-form-label">Spesifikasi</label>
-												<textarea type="text" name="deskripsi" id="deskripsi" required="required" class="form-control" placeholder="Masukkan Spesifikasi Barang"></textarea>
-											</div>
-
-											<!-- <div class="form-group row ">
-											<label class="control-label col-md-3 col-sm-3 ">Foto 1<span class="required"> *</span></label>
-											<div class="col-md-9 col-sm-9 ">
-												<input type="file" name="foto" id="foto" required="required" class="form-control">
+										</div>
+										<div class="form-group row">
+											<label for="cono1" class="col-sm-3 text-right control-label col-form-label">Satuan</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" id="satuan" name="satuan" value="<?php echo $val->satuan ?>">
 											</div>
 										</div>
 
-										<div class="form-group row ">
-											<label class="control-label col-md-3 col-sm-3 ">Foto 2<span class="required"> *</span></label>
-											<div class="col-md-9 col-sm-9 ">
-												<input type="file" name="foto2" id="foto2" required="required" class="form-control">
+										<div class="form-group row">
+											<label for="deskripsi" class="col-sm-3 text-right control-label col-form-label">Deskripsi</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" id="deskripsi" name="deskripsi" value="<?php echo $val->deskripsi ?>"></input>
 											</div>
-										</div> -->
+										</div>
+
 									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-										<button class="btn btn-warning" type="reset">Reset</button>
-										<button type="submit" class="btn btn-primary">Save changes</button>
+									<div class="border-top">
+										<div class="card-body">
+											<button type="submit" class="btn btn-primary">Save</button>
+											<button type="reset" class="btn btn-danger">Reset</button>
+											<a href="<?php echo site_url('admin/product_data'); ?>"><button type="button" class="btn btn-info">Back</button></a>
+										</div>
 									</div>
-									</form>
-								<?php endforeach; ?>
-							</div>
-							<a href="<?= base_url('admin/invoice') ?>">
-								<div class="btn btn-sm btn-primary">Kembali</div>
-							</a>
 						</div>
 					</div>
-
+					<div class="col-3">
+						<div class="card" style="width: 16rem;">
+							<center>
+								<img src="<?php echo base_url() . '/upload/produk/' . $val->foto ?>" style="width:250px;height:330px" alt="<?php echo $val->nama_barang ?>">
+								<div class="card-body">
+									<p class="card-text">Gambar 1</p>
+								</div>
+							</center>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="card" style="width: 16rem;">
+							<center>
+								<img src="<?php echo base_url() . '/upload/produk/' . $val->foto2 ?>" style="width:250px;height:330px" alt="<?php echo $val->nama_barang ?>">
+								<div class="card-body">
+									<p class="card-text">Gambar 2</p>
+								</div>
+							</center>
+						</div>
+					</div>
+					</form>
+				<?php endforeach; ?>
 				</div>
-
 			</div>
 		</div>
-	</div>
 	</div>
 </body>
